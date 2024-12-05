@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{cabecera :: head-content}"></head>
+<body>
+<header>
+    <h1 th:text="${mensajeCabecera}"></h1>
+</header>
+<section>
+    <h2>Iteración: <span th:text="${iteraciones}"></span></h2>
+    <div>
+        <!-- Enlaces para cambiar idioma -->
+        <a th:href="@{/?lang=es}">Español</a> | <a th:href="@{/?lang=en}">English</a>
+    </div>
+    <form action="/formulario/recibe-parametros" th:object="${datosFormulario}" method="post">
+        <fieldset>
+            <legend th:text="#{tituloPagina}">Formulario</legend>
+
+            <!-- Campo Nombre -->
+            <label for="nombre" th:text="#{nombre.etiqueta}"></label>
+            <input type="text" id="nombre" name="nombre" th:field="*{nombre}" th:placeholder="#{nombre.placeholder}">
+            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+
+            <!-- Campo Contraseña -->
+            <label for="clave" th:text="#{clave.etiqueta}"></label>
+            <input type="password" id="clave" name="clave" th:field="*{clave}" th:placeholder="#{clave.placeholder}">
+            <span th:if="${#fields.hasErrors('clave')}" th:errors="*{clave}"></span>
+
+            <!-- Campo Confirmar Contraseña -->
+            <label for="confirmarClave" th:text="#{confirmarClave.etiqueta}"></label>
+            <input type="password" id="confirmarClave" name="confirmarClave" th:field="*{confirmarClave}" th:placeholder="#{confirmarClave.placeholder}">
+            <span th:if="${#fields.hasErrors('confirmarClave')}" th:errors="*{confirmarClave}"></span>
+        </fieldset>
+        <button type="submit">Enviar</button>
+    </form>
+</section>
+</body>
+</html>
